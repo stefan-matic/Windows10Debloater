@@ -211,7 +211,7 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $Form                            = New-Object system.Windows.Forms.Form
-$Form.ClientSize                 = New-Object System.Drawing.Point(500,570)
+$Form.ClientSize                 = New-Object System.Drawing.Point(500,610)
 $Form.StartPosition              = 'CenterScreen'
 $Form.FormBorderStyle            = 'FixedSingle'
 $Form.MinimizeBox                = $false
@@ -252,7 +252,7 @@ $DarkThemePanel.Anchor           = 'top,right,left'
 $DarkThemePanel.location         = New-Object System.Drawing.Point(337,270)
 
 $OtherPanel                      = New-Object system.Windows.Forms.Panel
-$OtherPanel.height               = 160
+$OtherPanel.height               = 200
 $OtherPanel.width                = 480
 $OtherPanel.Anchor               = 'top,right,left'
 $OtherPanel.location             = New-Object System.Drawing.Point(10,400)
@@ -467,13 +467,23 @@ $InstallNet35.location           = New-Object System.Drawing.Point(10,120)
 $InstallNet35.Font               = New-Object System.Drawing.Font('Consolas',9)
 $InstallNet35.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
+$DisableFastStartup                    = New-Object system.Windows.Forms.Button
+$DisableFastStartup.FlatStyle          = 'Flat'
+$DisableFastStartup.text               = "DISABLE FAST STARTUP"
+$DisableFastStartup.width              = 460
+$DisableFastStartup.height             = 30
+$DisableFastStartup.Anchor             = 'top,right,left'
+$DisableFastStartup.location           = New-Object System.Drawing.Point(10,160)
+$DisableFastStartup.Font               = New-Object System.Drawing.Font('Consolas',9)
+$DisableFastStartup.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
 $Form.controls.AddRange(@($RegistryPanel,$DebloatPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel))
 $DebloatPanel.controls.AddRange(@($Debloat,$CustomizeBlacklist,$RemoveAllBloatware,$RemoveBlacklistedBloatware))
 $RegistryPanel.controls.AddRange(@($Registry,$RevertChanges))
 $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
 $EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
 $DarkThemePanel.controls.AddRange(@($Theme,$DisableDarkMode,$EnableDarkMode))
-$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys))
+$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
@@ -1450,6 +1460,15 @@ $DisableDarkMode.Add_Click( {
         Start-Sleep 1
         Write-Host "Disabled"
     }
+)
+
+$DisableFastStartup.Add_Click( {
+		Write-Host "Disabling Fast Startup"
+		$Power = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power"
+		Set-ItemProperty $Power HiberbootEnabled -Value 0
+		Start-Sleep 1
+		Write-Host "Disabled"
+	}
 )
 
 [void]$Form.ShowDialog()
