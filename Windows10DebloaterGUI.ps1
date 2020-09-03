@@ -211,13 +211,13 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $Form                            = New-Object system.Windows.Forms.Form
-$Form.ClientSize                 = New-Object System.Drawing.Point(500,610)
+$Form.ClientSize                 = New-Object System.Drawing.Point(500,650)
 $Form.StartPosition              = 'CenterScreen'
 $Form.FormBorderStyle            = 'FixedSingle'
 $Form.MinimizeBox                = $false
 $Form.MaximizeBox                = $false
 $Form.ShowIcon                   = $false
-$Form.text                       = "Windows10Debloader"
+$Form.text                       = "Windows10Debloader - MaticMod"
 $Form.TopMost                    = $false
 $Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#252525")
 
@@ -252,7 +252,7 @@ $DarkThemePanel.Anchor           = 'top,right,left'
 $DarkThemePanel.location         = New-Object System.Drawing.Point(337,270)
 
 $OtherPanel                      = New-Object system.Windows.Forms.Panel
-$OtherPanel.height               = 200
+$OtherPanel.height               = 240
 $OtherPanel.width                = 480
 $OtherPanel.Anchor               = 'top,right,left'
 $OtherPanel.location             = New-Object System.Drawing.Point(10,400)
@@ -467,15 +467,25 @@ $InstallNet35.location           = New-Object System.Drawing.Point(10,120)
 $InstallNet35.Font               = New-Object System.Drawing.Font('Consolas',9)
 $InstallNet35.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
-$DisableFastStartup                    = New-Object system.Windows.Forms.Button
-$DisableFastStartup.FlatStyle          = 'Flat'
-$DisableFastStartup.text               = "DISABLE FAST STARTUP"
-$DisableFastStartup.width              = 460
-$DisableFastStartup.height             = 30
-$DisableFastStartup.Anchor             = 'top,right,left'
-$DisableFastStartup.location           = New-Object System.Drawing.Point(10,160)
-$DisableFastStartup.Font               = New-Object System.Drawing.Font('Consolas',9)
-$DisableFastStartup.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+$DisableFastStartup              = New-Object system.Windows.Forms.Button
+$DisableFastStartup.FlatStyle    = 'Flat'
+$DisableFastStartup.text         = "DISABLE FAST STARTUP"
+$DisableFastStartup.width        = 460
+$DisableFastStartup.height       = 30
+$DisableFastStartup.Anchor       = 'top,right,left'
+$DisableFastStartup.location     = New-Object System.Drawing.Point(10,160)
+$DisableFastStartup.Font         = New-Object System.Drawing.Font('Consolas',9)
+$DisableFastStartup.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
+$RegionFormat                    = New-Object system.Windows.Forms.Button
+$RegionFormat.FlatStyle          = 'Flat'
+$RegionFormat.text               = "CHANGE REGION FORMAT"
+$RegionFormat.width              = 460
+$RegionFormat.height             = 30
+$RegionFormat.Anchor             = 'top,right,left'
+$RegionFormat.location           = New-Object System.Drawing.Point(10,200)
+$RegionFormat.Font               = New-Object System.Drawing.Font('Consolas',9)
+$RegionFormat.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $Form.controls.AddRange(@($RegistryPanel,$DebloatPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel))
 $DebloatPanel.controls.AddRange(@($Debloat,$CustomizeBlacklist,$RemoveAllBloatware,$RemoveBlacklistedBloatware))
@@ -483,7 +493,7 @@ $RegistryPanel.controls.AddRange(@($Registry,$RevertChanges))
 $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
 $EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
 $DarkThemePanel.controls.AddRange(@($Theme,$DisableDarkMode,$EnableDarkMode))
-$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup))
+$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup,$RegionFormat))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
@@ -1468,6 +1478,23 @@ $DisableFastStartup.Add_Click( {
 		Set-ItemProperty $Power HiberbootEnabled -Value 0
 		Start-Sleep 1
 		Write-Host "Disabled"
+	}
+)
+
+$RegionFormat.Add_Click( {
+		Write-Host "Changing Region Format"
+		$RegionFormat = "HKCU:\Control Panel\International"
+		Set-ItemProperty $RegionFormat sLongDate -Value "d MMMM, yyyy"
+       # Start-Sleep 1
+        Set-ItemProperty $RegionFormat sShortDate -Value "dd-MMM-yy"
+        #Start-Sleep 1
+        Set-ItemProperty $RegionFormat sTimeFormat -Value "H:mm:ss"
+        #Start-Sleep 1
+        Set-ItemProperty $RegionFormat sShortTime -Value "HH:mm"
+        #Start-Sleep 1
+        Set-ItemProperty $RegionFormat iFirstDayOfWeek -Value "0"
+		Start-Sleep 1
+		Write-Host "Done"
 	}
 )
 
