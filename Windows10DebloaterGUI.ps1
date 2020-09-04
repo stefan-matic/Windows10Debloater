@@ -211,7 +211,7 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $Form                            = New-Object system.Windows.Forms.Form
-$Form.ClientSize                 = New-Object System.Drawing.Point(500,650)
+$Form.ClientSize                 = New-Object System.Drawing.Point(500,750)
 $Form.StartPosition              = 'CenterScreen'
 $Form.FormBorderStyle            = 'FixedSingle'
 $Form.MinimizeBox                = $false
@@ -252,10 +252,16 @@ $DarkThemePanel.Anchor           = 'top,right,left'
 $DarkThemePanel.location         = New-Object System.Drawing.Point(337,270)
 
 $OtherPanel                      = New-Object system.Windows.Forms.Panel
-$OtherPanel.height               = 240
+$OtherPanel.height               = 200
 $OtherPanel.width                = 480
 $OtherPanel.Anchor               = 'top,right,left'
 $OtherPanel.location             = New-Object System.Drawing.Point(10,400)
+
+$MaticPanel                      = New-Object system.Windows.Forms.Panel
+$MaticPanel.height               = 240
+$MaticPanel.width                = 480
+$MaticPanel.Anchor               = 'top,right,left'
+$MaticPanel.location             = New-Object System.Drawing.Point(10,600)
 
 $Debloat                         = New-Object system.Windows.Forms.Label
 $Debloat.text                    = "DEBLOAT OPTIONS"
@@ -267,15 +273,15 @@ $Debloat.location                = New-Object System.Drawing.Point(10,9)
 $Debloat.Font                    = New-Object System.Drawing.Font('Consolas',15,[System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
 $Debloat.ForeColor               = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
-$CustomizeBlacklist             = New-Object system.Windows.Forms.Button
-$CustomizeBlacklist.FlatStyle   = 'Flat'
-$CustomizeBlacklist.text        = "CUSTOMISE BLACKLIST"
-$CustomizeBlacklist.width       = 460
-$CustomizeBlacklist.height      = 30
-$CustomizeBlacklist.Anchor      = 'top,right,left'
-$CustomizeBlacklist.location    = New-Object System.Drawing.Point(10,40)
-$CustomizeBlacklist.Font        = New-Object System.Drawing.Font('Consolas',9)
-$CustomizeBlacklist.ForeColor   = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+$CustomizeBlacklist              = New-Object system.Windows.Forms.Button
+$CustomizeBlacklist.FlatStyle    = 'Flat'
+$CustomizeBlacklist.text         = "CUSTOMISE BLACKLIST"
+$CustomizeBlacklist.width        = 460
+$CustomizeBlacklist.height       = 30
+$CustomizeBlacklist.Anchor       = 'top,right,left'
+$CustomizeBlacklist.location     = New-Object System.Drawing.Point(10,40)
+$CustomizeBlacklist.Font         = New-Object System.Drawing.Font('Consolas',9)
+$CustomizeBlacklist.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $RemoveAllBloatware              = New-Object system.Windows.Forms.Button
 $RemoveAllBloatware.FlatStyle    = 'Flat'
@@ -307,15 +313,15 @@ $Registry.location               = New-Object System.Drawing.Point(10,10)
 $Registry.Font                   = New-Object System.Drawing.Font('Consolas',15,[System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
 $Registry.ForeColor              = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
-$RevertChanges                    = New-Object system.Windows.Forms.Button
-$RevertChanges.FlatStyle          = 'Flat'
-$RevertChanges.text               = "REVERT REGISTRY CHANGES"
-$RevertChanges.width              = 460
-$RevertChanges.height             = 30
-$RevertChanges.Anchor             = 'top,right,left'
-$RevertChanges.location           = New-Object System.Drawing.Point(10,40)
-$RevertChanges.Font               = New-Object System.Drawing.Font('Consolas',9)
-$RevertChanges.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+$RevertChanges                   = New-Object system.Windows.Forms.Button
+$RevertChanges.FlatStyle         = 'Flat'
+$RevertChanges.text              = "REVERT REGISTRY CHANGES"
+$RevertChanges.width             = 460
+$RevertChanges.height            = 30
+$RevertChanges.Anchor            = 'top,right,left'
+$RevertChanges.location          = New-Object System.Drawing.Point(10,40)
+$RevertChanges.Font              = New-Object System.Drawing.Font('Consolas',9)
+$RevertChanges.ForeColor         = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $Cortana                         = New-Object system.Windows.Forms.Label
 $Cortana.text                    = "CORTANA"
@@ -365,7 +371,7 @@ $EnableEdgePDFTakeover.height    = 30
 $EnableEdgePDFTakeover.Anchor    = 'top,right,left'
 $EnableEdgePDFTakeover.location  = New-Object System.Drawing.Point(10,40)
 $EnableEdgePDFTakeover.Font      = New-Object System.Drawing.Font('Consolas',9)
-$EnableEdgePDFTakeover.ForeColor  = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+$EnableEdgePDFTakeover.ForeColor = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $DisableEdgePDFTakeover             = New-Object system.Windows.Forms.Button
 $DisableEdgePDFTakeover.FlatStyle   = 'Flat'
@@ -416,6 +422,16 @@ $Other.Anchor                    = 'top,right,left'
 $Other.location                  = New-Object System.Drawing.Point(10,10)
 $Other.Font                      = New-Object System.Drawing.Font('Consolas',15,[System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
 $Other.ForeColor                 = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
+$MaticMod                        = New-Object system.Windows.Forms.Label
+$MaticMod.text                   = "MATIC MOD"
+$MaticMod.AutoSize               = $true
+$MaticMod.width                  = 457
+$MaticMod.height                 = 142
+$MaticMod.Anchor                 = 'top,right,left'
+$MaticMod.location               = New-Object System.Drawing.Point(10,10)
+$MaticMod.Font                   = New-Object System.Drawing.Font('Consolas',15,[System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
+$MaticMod.ForeColor              = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $RemoveOnedrive                  = New-Object system.Windows.Forms.Button
 $RemoveOnedrive.FlatStyle        = 'Flat'
@@ -479,21 +495,42 @@ $DisableFastStartup.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#
 
 $RegionFormat                    = New-Object system.Windows.Forms.Button
 $RegionFormat.FlatStyle          = 'Flat'
-$RegionFormat.text               = "CHANGE REGION FORMAT"
-$RegionFormat.width              = 460
+$RegionFormat.text               = "REGION FORMAT"
+$RegionFormat.width              = 120
 $RegionFormat.height             = 30
 $RegionFormat.Anchor             = 'top,right,left'
-$RegionFormat.location           = New-Object System.Drawing.Point(10,200)
+$RegionFormat.location           = New-Object System.Drawing.Point(10,40)
 $RegionFormat.Font               = New-Object System.Drawing.Font('Consolas',9)
 $RegionFormat.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
-$Form.controls.AddRange(@($RegistryPanel,$DebloatPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel))
+$NiniteFull                      = New-Object system.Windows.Forms.Button
+$NiniteFull.FlatStyle            = 'Flat'
+$NiniteFull.text                 = "NINITE FULL"
+$NiniteFull.width                = 133
+$NiniteFull.height               = 30
+$NiniteFull.Anchor               = 'top,right,left'
+$NiniteFull.location             = New-Object System.Drawing.Point(173,40)
+$NiniteFull.Font                 = New-Object System.Drawing.Font('Consolas',9)
+$NiniteFull.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
+$Placeholder                     = New-Object system.Windows.Forms.Button
+$Placeholder.FlatStyle           = 'Flat'
+$Placeholder.text                = "PLACEHOLDER"
+$Placeholder.width               = 133
+$Placeholder.height              = 30
+$Placeholder.Anchor              = 'top,right,left'
+$Placeholder.location            = New-Object System.Drawing.Point(337,40)
+$Placeholder.Font                = New-Object System.Drawing.Font('Consolas',9)
+$Placeholder.ForeColor           = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
+$Form.controls.AddRange(@($RegistryPanel,$DebloatPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel,$MaticPanel))
 $DebloatPanel.controls.AddRange(@($Debloat,$CustomizeBlacklist,$RemoveAllBloatware,$RemoveBlacklistedBloatware))
 $RegistryPanel.controls.AddRange(@($Registry,$RevertChanges))
 $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
 $EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
 $DarkThemePanel.controls.AddRange(@($Theme,$DisableDarkMode,$EnableDarkMode))
-$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup,$RegionFormat))
+$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup))
+$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$Placeholder))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
