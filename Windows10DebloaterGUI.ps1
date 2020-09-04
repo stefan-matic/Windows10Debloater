@@ -513,15 +513,28 @@ $NiniteFull.location             = New-Object System.Drawing.Point(173,40)
 $NiniteFull.Font                 = New-Object System.Drawing.Font('Consolas',9)
 $NiniteFull.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
-$Placeholder                     = New-Object system.Windows.Forms.Button
-$Placeholder.FlatStyle           = 'Flat'
-$Placeholder.text                = "PLACEHOLDER"
-$Placeholder.width               = 133
-$Placeholder.height              = 30
-$Placeholder.Anchor              = 'top,right,left'
-$Placeholder.location            = New-Object System.Drawing.Point(337,40)
-$Placeholder.Font                = New-Object System.Drawing.Font('Consolas',9)
-$Placeholder.ForeColor           = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+$ChangeComputerName              = New-Object system.Windows.Forms.Button
+$ChangeComputerName.FlatStyle    = 'Flat'
+$ChangeComputerName.text         = "CHANGE PC NAME"
+$ChangeComputerName.width        = 133
+$ChangeComputerName.height       = 30
+$ChangeComputerName.Anchor       = 'top,right,left'
+$ChangeComputerName.location     = New-Object System.Drawing.Point(337,40)
+$ChangeComputerName.Font         = New-Object System.Drawing.Font('Consolas',9)
+$ChangeComputerName.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
+$CustomComputerName                 = New-Object system.Windows.Forms.TextBox
+$CustomComputerName.FlatStyle       = 'Flat'
+$CustomComputerName.Text            = "Computer Name"
+$CustomComputerName.TextAlign       = 'Center'
+$CustomComputerName.multiline       = $false
+$CustomComputerName.width           = 133
+$CustomComputerName.height          = 30
+$CustomComputerName.Anchor          = 'top,right,left'
+$CustomComputerName.location        = New-Object System.Drawing.Point(337,80)
+$CustomComputerName.Font            = New-Object System.Drawing.Font('Consolas',9)
+$CustomComputerName.ForeColor       = [System.Drawing.ColorTranslator]::FromHtml("#ffffff")
+$CustomComputerName.BackColor       = [System.Drawing.ColorTranslator]::FromHtml("#171717")
 
 $Form.controls.AddRange(@($RegistryPanel,$DebloatPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel,$MaticPanel))
 $DebloatPanel.controls.AddRange(@($Debloat,$CustomizeBlacklist,$RemoveAllBloatware,$RemoveBlacklistedBloatware))
@@ -530,7 +543,7 @@ $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
 $EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
 $DarkThemePanel.controls.AddRange(@($Theme,$DisableDarkMode,$EnableDarkMode))
 $OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup))
-$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$Placeholder))
+$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$ChangeComputerName,$CustomComputerName))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
@@ -1522,17 +1535,24 @@ $RegionFormat.Add_Click( {
 		Write-Host "Changing Region Format"
 		$RegionFormat = "HKCU:\Control Panel\International"
 		Set-ItemProperty $RegionFormat sLongDate -Value "d MMMM, yyyy"
-       # Start-Sleep 1
         Set-ItemProperty $RegionFormat sShortDate -Value "dd-MMM-yy"
-        #Start-Sleep 1
         Set-ItemProperty $RegionFormat sTimeFormat -Value "H:mm:ss"
-        #Start-Sleep 1
         Set-ItemProperty $RegionFormat sShortTime -Value "HH:mm"
-        #Start-Sleep 1
         Set-ItemProperty $RegionFormat iFirstDayOfWeek -Value "0"
 		Start-Sleep 1
 		Write-Host "Done"
 	}
+)
+
+
+$CustomComputerName.Add_Click({ $CustomComputerName.Clear() })
+
+$ChangeComputerName.Add_Click( {
+    Write-Host "Changing PC Name"
+    Rename-Computer -NewName ($CustomComputerName.Text)
+    Start-Sleep 1
+    Write-Host "Done"
+}
 )
 
 [void]$Form.ShowDialog()
