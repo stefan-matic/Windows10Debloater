@@ -211,7 +211,7 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $Form                            = New-Object system.Windows.Forms.Form
-$Form.ClientSize                 = New-Object System.Drawing.Point(500,700)
+$Form.ClientSize                 = New-Object System.Drawing.Point(500,750)
 $Form.StartPosition              = 'CenterScreen'
 $Form.FormBorderStyle            = 'FixedSingle'
 $Form.MinimizeBox                = $false
@@ -252,7 +252,7 @@ $DarkThemePanel.Anchor           = 'top,right,left'
 $DarkThemePanel.location         = New-Object System.Drawing.Point(337,270)
 
 $OtherPanel                      = New-Object system.Windows.Forms.Panel
-$OtherPanel.height               = 120
+$OtherPanel.height               = 150
 $OtherPanel.width                = 480
 $OtherPanel.Anchor               = 'top,right,left'
 $OtherPanel.location             = New-Object System.Drawing.Point(10,400)
@@ -261,7 +261,7 @@ $MaticPanel                      = New-Object system.Windows.Forms.Panel
 $MaticPanel.height               = 240
 $MaticPanel.width                = 480
 $MaticPanel.Anchor               = 'top,right,left'
-$MaticPanel.location             = New-Object System.Drawing.Point(10,520)
+$MaticPanel.location             = New-Object System.Drawing.Point(10,560)
 
 $Debloat                         = New-Object system.Windows.Forms.Label
 $Debloat.text                    = "DEBLOAT OPTIONS"
@@ -543,13 +543,23 @@ $PowerToys.location              = New-Object System.Drawing.Point(173,120)
 $PowerToys.Font                  = New-Object System.Drawing.Font('Consolas',9)
 $PowerToys.ForeColor             = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
+$RebindCaps                       = New-Object system.Windows.Forms.Button
+$RebindCaps.FlatStyle             = 'Flat'
+$RebindCaps.text                  = "REBIND CAPSLOCK"
+$RebindCaps.width                 = 133
+$RebindCaps.height                = 30
+$RebindCaps.Anchor                = 'top,right,left'
+$RebindCaps.location              = New-Object System.Drawing.Point(337,40)
+$RebindCaps.Font                  = New-Object System.Drawing.Font('Consolas',9)
+$RebindCaps.ForeColor             = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
 $ChangeComputerName              = New-Object system.Windows.Forms.Button
 $ChangeComputerName.FlatStyle    = 'Flat'
 $ChangeComputerName.text         = "CHANGE PC NAME"
 $ChangeComputerName.width        = 133
 $ChangeComputerName.height       = 30
 $ChangeComputerName.Anchor       = 'top,right,left'
-$ChangeComputerName.location     = New-Object System.Drawing.Point(337,40)
+$ChangeComputerName.location     = New-Object System.Drawing.Point(337,80)
 $ChangeComputerName.Font         = New-Object System.Drawing.Font('Consolas',9)
 $ChangeComputerName.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
@@ -561,19 +571,19 @@ $CustomComputerName.multiline    = $false
 $CustomComputerName.width        = 133
 $CustomComputerName.height       = 30
 $CustomComputerName.Anchor       = 'top,right,left'
-$CustomComputerName.location     = New-Object System.Drawing.Point(337,80)
+$CustomComputerName.location     = New-Object System.Drawing.Point(337,120)
 $CustomComputerName.Font         = New-Object System.Drawing.Font('Consolas',9)
 $CustomComputerName.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#ffffff")
 $CustomComputerName.BackColor    = [System.Drawing.ColorTranslator]::FromHtml("#171717")
 
-$Form.controls.AddRange(@($RegistryPanel,$DebloatPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel,$MaticPanel))
+$Form.controls.AddRange(@($DebloatPanel,$RegistryPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel,$MaticPanel))
 $DebloatPanel.controls.AddRange(@($Debloat,$CustomizeBlacklist,$RemoveAllBloatware,$RemoveBlacklistedBloatware))
 $RegistryPanel.controls.AddRange(@($Registry,$RevertChanges))
 $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
-$EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
+$EdgePanel.controls.AddRange(@($Edge,$EnableEdgePDFTakeover,$DisableEdgePDFTakeover))
 $DarkThemePanel.controls.AddRange(@($Theme,$EnableDarkMode,$DisableDarkMode))
-$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys))
-$MaticPanel.controls.AddRange(@($MaticMod,$DisableFastStartup,$RegionFormat,$NiniteFull,$DisableUAC,$Viber,$PowerToys,$ChangeComputerName,$CustomComputerName))
+$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$DisableTelemetry,$UnpinStartMenuTiles,$RemoveRegkeys,$InstallNet35))
+$MaticPanel.controls.AddRange(@($MaticMod,$DisableFastStartup,$RegionFormat,$NiniteFull,$DisableUAC,$Viber,$PowerToys,$RebindCaps,$ChangeComputerName,$CustomComputerName))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
@@ -1643,7 +1653,13 @@ $PowerToys.Add_Click( {
 }
 )
 
-$CustomComputerName.Add_Click({ $CustomComputerName.Clear() })
+$RebindCaps.Add_Click({
+    Write-Host "Rebinding CapsLock to F20"
+    New-ItemProperty -Path HKLM:SYSTEM\CurrentControlSet\Control\"Keyboard Layout" -Name "Scancode Map" -PropertyType Binary -Value ([byte[]](0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00,0x00,0x00,0x6b,0x00,0x3a,0x00,0x00,0x00,0x00,0x00)) -Force
+    Start-Sleep 1
+    Write-Host "Done"
+    }
+)
 
 $ChangeComputerName.Add_Click( {
     Write-Host "Changing PC Name"
@@ -1653,5 +1669,6 @@ $ChangeComputerName.Add_Click( {
 }
 )
 
+$CustomComputerName.Add_Click({ $CustomComputerName.Clear() })
 
 [void]$Form.ShowDialog()
