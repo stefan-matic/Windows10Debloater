@@ -496,7 +496,7 @@ $DisableFastStartup.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#
 $RegionFormat                    = New-Object system.Windows.Forms.Button
 $RegionFormat.FlatStyle          = 'Flat'
 $RegionFormat.text               = "REGION FORMAT"
-$RegionFormat.width              = 120
+$RegionFormat.width              = 133
 $RegionFormat.height             = 30
 $RegionFormat.Anchor             = 'top,right,left'
 $RegionFormat.location           = New-Object System.Drawing.Point(10,40)
@@ -509,19 +509,29 @@ $NiniteFull.text                 = "NINITE FULL"
 $NiniteFull.width                = 133
 $NiniteFull.height               = 30
 $NiniteFull.Anchor               = 'top,right,left'
-$NiniteFull.location             = New-Object System.Drawing.Point(173,40)
+$NiniteFull.location             = New-Object System.Drawing.Point(10,80)
 $NiniteFull.Font                 = New-Object System.Drawing.Font('Consolas',9)
 $NiniteFull.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
-$PowerToys                      = New-Object system.Windows.Forms.Button
-$PowerToys.FlatStyle            = 'Flat'
-$PowerToys.text                 = "INSTALL POWERTOYS"
-$PowerToys.width                = 133
-$PowerToys.height               = 30
-$PowerToys.Anchor               = 'top,right,left'
-$PowerToys.location             = New-Object System.Drawing.Point(173,80)
-$PowerToys.Font                 = New-Object System.Drawing.Font('Consolas',9)
-$PowerToys.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+$Viber                           = New-Object system.Windows.Forms.Button
+$Viber.FlatStyle                 = 'Flat'
+$Viber.text                      = "INSTALL VIBER"
+$Viber.width                     = 133
+$Viber.height                    = 30
+$Viber.Anchor                    = 'top,right,left'
+$Viber.location                  = New-Object System.Drawing.Point(173,40)
+$Viber.Font                      = New-Object System.Drawing.Font('Consolas',9)
+$Viber.ForeColor                 = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
+$PowerToys                       = New-Object system.Windows.Forms.Button
+$PowerToys.FlatStyle             = 'Flat'
+$PowerToys.text                  = "INSTALL POWERTOYS"
+$PowerToys.width                 = 133
+$PowerToys.height                = 30
+$PowerToys.Anchor                = 'top,right,left'
+$PowerToys.location              = New-Object System.Drawing.Point(173,80)
+$PowerToys.Font                  = New-Object System.Drawing.Font('Consolas',9)
+$PowerToys.ForeColor             = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $ChangeComputerName              = New-Object system.Windows.Forms.Button
 $ChangeComputerName.FlatStyle    = 'Flat'
@@ -553,7 +563,7 @@ $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
 $EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
 $DarkThemePanel.controls.AddRange(@($Theme,$DisableDarkMode,$EnableDarkMode))
 $OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup))
-$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$PowerToys,$ChangeComputerName,$CustomComputerName))
+$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$Viber,$PowerToys,$ChangeComputerName,$CustomComputerName))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
@@ -1563,6 +1573,17 @@ $NiniteFull.Add_Click( {
     Write-Host "Running installer"
     wget -outf ninite.exe https://ninite.com/.net4.8-7zip-adoptjava8-adoptjavax11-adoptjavax8-avast-chrome-classicstart-everything-firefox-foxit-klitecodecs-notepadplusplus-sharex-skype-teamviewer15-vlc/ninite.exe
     .\ninite.exe
+    
+})
+
+$Viber.Add_Click( {
+    Write-Host "Downloading Viber installer..."
+    #$downloadViberUri = https://download.cdn.viber.com/desktop/windows/ViberSetup.exe
+    #$pathViber = Join-Path -Path $([System.IO.Path]::GetTempPath()) -ChildPath $(Split-Path -Path $downloadUri -Leaf)
+    #iwr -Uri $downloadViberUri -Out $pathViber
+    wget -outf ViberSetup.exe https://download.cdn.viber.com/desktop/windows/ViberSetup.exe
+    Write-Host "Download complete. Running Viber installer, please finish manually"
+    .\ViberSetup.exe
     
 })
 
