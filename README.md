@@ -3,7 +3,15 @@ I do *not* take responsibility for what may happen to your system. This is at yo
 
 # Windows10Debloater
 
-Script/Utility/Application to debloat Windows 10
+Script/Utility/Application to debloat Windows 10 modified with additional functions that I use on clean installs.
+Feel free to fork and modify to suit your needs.
+
+For original creator visit https://github.com/Sycnex/Windows10Debloater
+For the dark theme overhaul visit https://github.com/tlejolivet/Windows10Debloater
+
+# Quick download link
+
+`iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/matic'))`
 
 # How To Run the Windows10Debloater.ps1 and the Windows10DebloaterGUI.ps1 files
 
@@ -169,10 +177,8 @@ Xbox Identity Provider,
 Zune Music,
 Zune Video.
 
-# Quick download link
-
-`iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/debloat'))`
-
 # Credits
 
 Thank you to a60wattfish, abulgatz, xsisbest, Damian, Vikingat-RAGE, and Reddit user /u/GavinEke for some of the suggestions and fixes that I have placed into my scripts. You all have done a fantastic job!
+
+Personally I want to thank Sycnex for this amazing app, and tlejolivet for his awesome UI overhaul which my fork is based upon.
