@@ -513,6 +513,16 @@ $NiniteFull.location             = New-Object System.Drawing.Point(173,40)
 $NiniteFull.Font                 = New-Object System.Drawing.Font('Consolas',9)
 $NiniteFull.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
+$PowerToys                      = New-Object system.Windows.Forms.Button
+$PowerToys.FlatStyle            = 'Flat'
+$PowerToys.text                 = "INSTALL POWERTOYS"
+$PowerToys.width                = 133
+$PowerToys.height               = 30
+$PowerToys.Anchor               = 'top,right,left'
+$PowerToys.location             = New-Object System.Drawing.Point(173,80)
+$PowerToys.Font                 = New-Object System.Drawing.Font('Consolas',9)
+$PowerToys.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
 $ChangeComputerName              = New-Object system.Windows.Forms.Button
 $ChangeComputerName.FlatStyle    = 'Flat'
 $ChangeComputerName.text         = "CHANGE PC NAME"
@@ -523,18 +533,18 @@ $ChangeComputerName.location     = New-Object System.Drawing.Point(337,40)
 $ChangeComputerName.Font         = New-Object System.Drawing.Font('Consolas',9)
 $ChangeComputerName.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
-$CustomComputerName                 = New-Object system.Windows.Forms.TextBox
-$CustomComputerName.FlatStyle       = 'Flat'
-$CustomComputerName.Text            = "Computer Name"
-$CustomComputerName.TextAlign       = 'Center'
-$CustomComputerName.multiline       = $false
-$CustomComputerName.width           = 133
-$CustomComputerName.height          = 30
-$CustomComputerName.Anchor          = 'top,right,left'
-$CustomComputerName.location        = New-Object System.Drawing.Point(337,80)
-$CustomComputerName.Font            = New-Object System.Drawing.Font('Consolas',9)
-$CustomComputerName.ForeColor       = [System.Drawing.ColorTranslator]::FromHtml("#ffffff")
-$CustomComputerName.BackColor       = [System.Drawing.ColorTranslator]::FromHtml("#171717")
+$CustomComputerName              = New-Object system.Windows.Forms.TextBox
+$CustomComputerName.FlatStyle    = 'Flat'
+$CustomComputerName.Text         = "Computer Name"
+$CustomComputerName.TextAlign    = 'Center'
+$CustomComputerName.multiline    = $false
+$CustomComputerName.width        = 133
+$CustomComputerName.height       = 30
+$CustomComputerName.Anchor       = 'top,right,left'
+$CustomComputerName.location     = New-Object System.Drawing.Point(337,80)
+$CustomComputerName.Font         = New-Object System.Drawing.Font('Consolas',9)
+$CustomComputerName.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#ffffff")
+$CustomComputerName.BackColor    = [System.Drawing.ColorTranslator]::FromHtml("#171717")
 
 $Form.controls.AddRange(@($RegistryPanel,$DebloatPanel,$CortanaPanel,$EdgePanel,$DarkThemePanel,$OtherPanel,$MaticPanel))
 $DebloatPanel.controls.AddRange(@($Debloat,$CustomizeBlacklist,$RemoveAllBloatware,$RemoveBlacklistedBloatware))
@@ -543,7 +553,7 @@ $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
 $EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
 $DarkThemePanel.controls.AddRange(@($Theme,$DisableDarkMode,$EnableDarkMode))
 $OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup))
-$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$ChangeComputerName,$CustomComputerName))
+$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$PowerToys,$ChangeComputerName,$CustomComputerName))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
@@ -1544,6 +1554,43 @@ $RegionFormat.Add_Click( {
 	}
 )
 
+$NiniteFull.Add_Click( {
+    Write-Host "Running installer"
+    wget -outf ninite.exe https://ninite.com/.net4.8-7zip-adoptjava8-adoptjavax11-adoptjavax8-avast-chrome-classicstart-everything-firefox-foxit-klitecodecs-notepadplusplus-sharex-skype-teamviewer15-vlc/ninite.exe
+    .\ninite.exe
+    
+})
+
+$PowerToys.Add_Click( {
+    Write-Host "Downloading Latest PowerToys"
+
+    $repo = "microsoft/PowerToys"
+    $filenamePattern = "*.msi"
+    $innerDirectory = $true
+    $preRelease = $false
+    
+    if ($preRelease) {
+        $releasesUri = "https://api.github.com/repos/$repo/releases"
+        $downloadUri = ((Invoke-RestMethod -Method GET -Uri $releasesUri)[0].assets | Where-Object name -like $filenamePattern ).browser_download_url
+    }
+    else {
+        $releasesUri = "https://api.github.com/repos/$repo/releases/latest"
+        $downloadUri = ((Invoke-RestMethod -Method GET -Uri $releasesUri).assets | Where-Object name -like $filenamePattern ).browser_download_url
+    }
+    
+    $pathMSI = Join-Path -Path $([System.IO.Path]::GetTempPath()) -ChildPath $(Split-Path -Path $downloadUri -Leaf)
+    
+    iwr -Uri $downloadUri -Out $pathMSI 
+    
+    Write-Host "Download finished. Running the installation..."
+    
+    Start-Process $pathMSI
+
+    Start-Sleep 1
+
+    Write-Host "Please finish the installation manually"
+}
+)
 
 $CustomComputerName.Add_Click({ $CustomComputerName.Clear() })
 
