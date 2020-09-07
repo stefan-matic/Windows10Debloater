@@ -211,7 +211,7 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $Form                            = New-Object system.Windows.Forms.Form
-$Form.ClientSize                 = New-Object System.Drawing.Point(500,750)
+$Form.ClientSize                 = New-Object System.Drawing.Point(500,700)
 $Form.StartPosition              = 'CenterScreen'
 $Form.FormBorderStyle            = 'FixedSingle'
 $Form.MinimizeBox                = $false
@@ -252,7 +252,7 @@ $DarkThemePanel.Anchor           = 'top,right,left'
 $DarkThemePanel.location         = New-Object System.Drawing.Point(337,270)
 
 $OtherPanel                      = New-Object system.Windows.Forms.Panel
-$OtherPanel.height               = 200
+$OtherPanel.height               = 120
 $OtherPanel.width                = 480
 $OtherPanel.Anchor               = 'top,right,left'
 $OtherPanel.location             = New-Object System.Drawing.Point(10,400)
@@ -261,7 +261,7 @@ $MaticPanel                      = New-Object system.Windows.Forms.Panel
 $MaticPanel.height               = 240
 $MaticPanel.width                = 480
 $MaticPanel.Anchor               = 'top,right,left'
-$MaticPanel.location             = New-Object System.Drawing.Point(10,600)
+$MaticPanel.location             = New-Object System.Drawing.Point(10,520)
 
 $Debloat                         = New-Object system.Windows.Forms.Label
 $Debloat.text                    = "DEBLOAT OPTIONS"
@@ -275,7 +275,7 @@ $Debloat.ForeColor               = [System.Drawing.ColorTranslator]::FromHtml("#
 
 $CustomizeBlacklist              = New-Object system.Windows.Forms.Button
 $CustomizeBlacklist.FlatStyle    = 'Flat'
-$CustomizeBlacklist.text         = "CUSTOMISE BLACKLIST"
+$CustomizeBlacklist.text         = "CUSTOMIZE BLACKLIST"
 $CustomizeBlacklist.width        = 460
 $CustomizeBlacklist.height       = 30
 $CustomizeBlacklist.Anchor       = 'top,right,left'
@@ -485,12 +485,12 @@ $InstallNet35.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#
 
 $DisableFastStartup              = New-Object system.Windows.Forms.Button
 $DisableFastStartup.FlatStyle    = 'Flat'
-$DisableFastStartup.text         = "DISABLE FAST STARTUP"
-$DisableFastStartup.width        = 460
+$DisableFastStartup.text         = "DISABLE FASTSTARTUP"
+$DisableFastStartup.width        = 133
 $DisableFastStartup.height       = 30
 $DisableFastStartup.Anchor       = 'top,right,left'
-$DisableFastStartup.location     = New-Object System.Drawing.Point(10,160)
-$DisableFastStartup.Font         = New-Object System.Drawing.Font('Consolas',9)
+$DisableFastStartup.location     = New-Object System.Drawing.Point(10,40)
+$DisableFastStartup.Font         = New-Object System.Drawing.Font('Consolas',8)
 $DisableFastStartup.ForeColor    = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $RegionFormat                    = New-Object system.Windows.Forms.Button
@@ -499,7 +499,7 @@ $RegionFormat.text               = "REGION FORMAT"
 $RegionFormat.width              = 133
 $RegionFormat.height             = 30
 $RegionFormat.Anchor             = 'top,right,left'
-$RegionFormat.location           = New-Object System.Drawing.Point(10,40)
+$RegionFormat.location           = New-Object System.Drawing.Point(10,80)
 $RegionFormat.Font               = New-Object System.Drawing.Font('Consolas',9)
 $RegionFormat.ForeColor          = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
@@ -509,9 +509,19 @@ $NiniteFull.text                 = "NINITE FULL"
 $NiniteFull.width                = 133
 $NiniteFull.height               = 30
 $NiniteFull.Anchor               = 'top,right,left'
-$NiniteFull.location             = New-Object System.Drawing.Point(10,80)
+$NiniteFull.location             = New-Object System.Drawing.Point(10,120)
 $NiniteFull.Font                 = New-Object System.Drawing.Font('Consolas',9)
 $NiniteFull.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
+
+$DisableUAC                      = New-Object system.Windows.Forms.Button
+$DisableUAC.FlatStyle            = 'Flat'
+$DisableUAC.text                 = "DISABLE UAC"
+$DisableUAC.width                = 133
+$DisableUAC.height               = 30
+$DisableUAC.Anchor               = 'top,right,left'
+$DisableUAC.location             = New-Object System.Drawing.Point(173,40)
+$DisableUAC.Font                 = New-Object System.Drawing.Font('Consolas',9)
+$DisableUAC.ForeColor            = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
 $Viber                           = New-Object system.Windows.Forms.Button
 $Viber.FlatStyle                 = 'Flat'
@@ -519,7 +529,7 @@ $Viber.text                      = "INSTALL VIBER"
 $Viber.width                     = 133
 $Viber.height                    = 30
 $Viber.Anchor                    = 'top,right,left'
-$Viber.location                  = New-Object System.Drawing.Point(173,40)
+$Viber.location                  = New-Object System.Drawing.Point(173,80)
 $Viber.Font                      = New-Object System.Drawing.Font('Consolas',9)
 $Viber.ForeColor                 = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
@@ -529,7 +539,7 @@ $PowerToys.text                  = "INSTALL POWERTOYS"
 $PowerToys.width                 = 133
 $PowerToys.height                = 30
 $PowerToys.Anchor                = 'top,right,left'
-$PowerToys.location              = New-Object System.Drawing.Point(173,80)
+$PowerToys.location              = New-Object System.Drawing.Point(173,120)
 $PowerToys.Font                  = New-Object System.Drawing.Font('Consolas',9)
 $PowerToys.ForeColor             = [System.Drawing.ColorTranslator]::FromHtml("#eeeeee")
 
@@ -561,9 +571,9 @@ $DebloatPanel.controls.AddRange(@($Debloat,$CustomizeBlacklist,$RemoveAllBloatwa
 $RegistryPanel.controls.AddRange(@($Registry,$RevertChanges))
 $CortanaPanel.controls.AddRange(@($Cortana,$EnableCortana,$DisableCortana))
 $EdgePanel.controls.AddRange(@($EnableEdgePDFTakeover,$DisableEdgePDFTakeover,$Edge))
-$DarkThemePanel.controls.AddRange(@($Theme,$DisableDarkMode,$EnableDarkMode))
-$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys,$DisableFastStartup))
-$MaticPanel.controls.AddRange(@($MaticMod,$RegionFormat,$NiniteFull,$Viber,$PowerToys,$ChangeComputerName,$CustomComputerName))
+$DarkThemePanel.controls.AddRange(@($Theme,$EnableDarkMode,$DisableDarkMode))
+$OtherPanel.controls.AddRange(@($Other,$RemoveOnedrive,$InstallNet35,$UnpinStartMenuTiles,$DisableTelemetry,$RemoveRegkeys))
+$MaticPanel.controls.AddRange(@($MaticMod,$DisableFastStartup,$RegionFormat,$NiniteFull,$DisableUAC,$Viber,$PowerToys,$ChangeComputerName,$CustomComputerName))
 
 $DebloatFolder = "C:\Temp\Windows10Debloater"
 If (Test-Path $DebloatFolder) {
@@ -1551,6 +1561,14 @@ $DisableFastStartup.Add_Click( {
 	}
 )
 
+$DisableUAC.Add_Click( {
+        Write-Host "Disabling User Account Control"
+        New-ItemProperty -Path HKLM:Software\Microsoft\Windows\CurrentVersion\policies\system -Name EnableLUA -PropertyType DWord -Value 0 -Force
+        Start-Sleep 1
+        Write-Host "Disabled"
+    }
+)
+
 $RegionFormat.Add_Click( {
 		Write-Host "Changing Region Format"
 		$RegionFormat = "HKCU:\Control Panel\International"
@@ -1572,7 +1590,7 @@ $RegionFormat.Add_Click( {
         $LanguageList.Add("sr-Cyrl-RS")
         Set-WinUserLanguageList $LanguageList -Force
         Start-Sleep 1
-        Write-Host "All done"
+        Write-Host "Done"
 	}
 )
 
@@ -1634,5 +1652,6 @@ $ChangeComputerName.Add_Click( {
     Write-Host "Done"
 }
 )
+
 
 [void]$Form.ShowDialog()
