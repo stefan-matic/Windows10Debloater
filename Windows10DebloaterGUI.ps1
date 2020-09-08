@@ -1587,18 +1587,23 @@ $RegionFormat.Add_Click( {
         Set-ItemProperty $RegionFormat sTimeFormat -Value "H:mm:ss"
         Set-ItemProperty $RegionFormat sShortTime -Value "HH:mm"
         Set-ItemProperty $RegionFormat iFirstDayOfWeek -Value "0"
-		#Start-Sleep 1
+		Start-Sleep 1
         Write-Host "Done"
         #Start-Sleep 1
         Write-Host "Changing TimeZone"
         Set-TimeZone "Central European Standard Time"
-        #Start-Sleep 1
+        Start-Sleep 1
         Write-Host "Done"
         Write-Host "Setting input languages"
         $LanguageList = Get-WinUserLanguageList
         $LanguageList.Add("sr-Latn-RS")
         $LanguageList.Add("sr-Cyrl-RS")
         Set-WinUserLanguageList $LanguageList -Force
+        Start-Sleep 1
+        $InputHotkey = "HKCU:\Keyboard Layout\Toggle"
+        Set-ItemProperty $InputHotkey Hotkey -Value 1
+        Set-ItemProperty $InputHotkey 'Language Hotkey' -Value 1
+        Set-ItemProperty $InputHotkey 'Layout Hotkey' -Value 3
         Start-Sleep 1
         Write-Host "Done"
 	}
