@@ -1589,7 +1589,6 @@ $RegionFormat.Add_Click( {
         Set-ItemProperty $RegionFormat iFirstDayOfWeek -Value "0"
 		Start-Sleep 1
         Write-Host "Done"
-        #Start-Sleep 1
         Write-Host "Changing TimeZone"
         Set-TimeZone "Central European Standard Time"
         Start-Sleep 1

@@ -6,10 +6,10 @@ I do *not* take responsibility for what may happen to your system. This is at yo
 Script/Utility/Application to debloat Windows 10 modified with additional functions that I use on clean installs.
 Feel free to fork and modify to suit your needs.
 
-For original creator visit <br />
+For original creator visit </br>
 https://github.com/Sycnex/Windows10Debloater
 
-For the dark theme overhaul visit <br />
+For the dark theme overhaul visit </br>
 https://github.com/tlejolivet/Windows10Debloater
 
 # Quick download link
